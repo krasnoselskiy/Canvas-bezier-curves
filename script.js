@@ -102,14 +102,13 @@ class Animation {
         controlX2: _controlX2,
         controlY2: _controlY2 * this.size.h,
         endX: this.size.w,
-        endY: this.getYPlacementType(this.typeForEnd, i),
+        endY: this.size.h,
         alpha: _controlY2,
         hue: 360 / config.curvesNum * i,
       }
   
       this.drawCurve(curveParam);
     }
-
   }
 
   drawCurve(
@@ -123,7 +122,6 @@ class Animation {
   }
 
   updateCanvas() {
-    this.ctx.fillStyle = `rgb(22, 22, 25)`;
     this.ctx.fillRect(0, 0, this.size.w, this.size.h);
   }
 
@@ -145,6 +143,7 @@ class Animation {
 
   updateFrameCounter() {
     this.framesCounter = (this.framesCounter + 1) % config.framesToMove;
+
     if (this.framesCounter === 0) {
       this.typeForStart = Math.random();
       this.typeForEnd = Math.random();
@@ -153,7 +152,7 @@ class Animation {
 
   updateAnimation() {
     this.updateCanvas();
-    this.updateFrameCounter();
+    // this.updateFrameCounter();
     this.updateCurves();
     this.updateControls();
     window.requestAnimationFrame(() => this.updateAnimation());
